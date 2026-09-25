@@ -13,5 +13,5 @@ locals {
   # (without the fix, "before" test). Set to the image built from kubernetes-sigs/karpenter#3181
   # for the "after" test.
   # karpenter_image = "ghcr.io/ssup2-playground/karpenter:pr3181"
-  karpenter_image = ""
+  karpenter_image = "ghcr.io/ssup2-playground/karpenter:pr3181"
 }

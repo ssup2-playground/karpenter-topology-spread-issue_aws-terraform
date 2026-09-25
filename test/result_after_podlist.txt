@@ -1,0 +1,14 @@
+# Karpenter with kubernetes-sigs/karpenter#3181 (ghcr.io/ssup2-playground/karpenter:pr3181)
+# Result: 4 Running / 0 Pending, spread 2:2 across the 2az NodePool's zones
+
+NAME                       READY   STATUS    RESTARTS   AGE   IP            NODE                          NOMINATED NODE   READINESS GATES
+2az-app-675b9bd9b6-2f7nw   1/1     Running   0          12m   10.0.52.229   ip-10-0-49-37.ec2.internal    <none>           <none>
+2az-app-675b9bd9b6-4m95p   1/1     Running   0          12m   10.0.79.30    ip-10-0-77-167.ec2.internal   <none>           <none>
+2az-app-675b9bd9b6-bph54   1/1     Running   0          12m   10.0.51.239   ip-10-0-49-32.ec2.internal    <none>           <none>
+2az-app-675b9bd9b6-sskmx   1/1     Running   0          12m   10.0.78.198   ip-10-0-73-238.ec2.internal   <none>           <none>
+
+NAME        TYPE         CAPACITY    ZONE         NODE                          READY   AGE   IMAGEID                 ID                                      NODEPOOL   NODECLASS   DRIFTED
+2az-77qgp   c6g.xlarge   on-demand   us-east-1b   ip-10-0-77-167.ec2.internal   True    12m   ami-015408e6ba98db2d9   aws:///us-east-1b/i-0b9b83ea10c5ed704   2az        default     
+2az-8hhwq   c6g.xlarge   on-demand   us-east-1a   ip-10-0-49-32.ec2.internal    True    66s   ami-015408e6ba98db2d9   aws:///us-east-1a/i-0b7ab43588e89f4b5   2az        default     
+2az-ccbfq   c6g.xlarge   on-demand   us-east-1a   ip-10-0-49-37.ec2.internal    True    12m   ami-015408e6ba98db2d9   aws:///us-east-1a/i-08f65c83761bfee5d   2az        default     
+2az-pmzx5   c6g.xlarge   on-demand   us-east-1b   ip-10-0-73-238.ec2.internal   True    66s   ami-015408e6ba98db2d9   aws:///us-east-1b/i-0f5661267c255ba46   2az        default     
