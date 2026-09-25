@@ -17,7 +17,7 @@ provider "kubernetes" {
   exec {
     api_version = "client.authentication.k8s.io/v1beta1"
     command     = "aws"
-    args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_name]
+    args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_name, "--profile", local.profile]
   }
 }
 
@@ -29,7 +29,7 @@ provider "helm" {
     exec = {
       api_version = "client.authentication.k8s.io/v1beta1"
       command     = "aws"
-      args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_name]
+      args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_name, "--profile", local.profile]
     }
   }
 }
@@ -43,7 +43,7 @@ provider "kubectl" {
   exec {
     api_version = "client.authentication.k8s.io/v1beta1"
     command     = "aws"
-    args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_name]
+    args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_name, "--profile", local.profile]
   }
 }
 
@@ -95,19 +95,29 @@ module "eks" {
 
   enable_cluster_creator_admin_permissions = true
 
+  # vpc-cni and kube-proxy must be installed before nodes launch; without them nodes never
+  # become Ready and node group creation deadlocks on NodeCreationFailure.
   addons = {
-    coredns    = { most_recent = true }
-    kube-proxy = { most_recent = true }
-    vpc-cni    = { most_recent = true }
+    coredns = { most_recent = true }
+    # Required for Karpenter's Pod Identity credentials
+    eks-pod-identity-agent = { most_recent = true }
+    kube-proxy = {
+      most_recent    = true
+      before_compute = true
+    }
+    vpc-cni = {
+      most_recent    = true
+      before_compute = true
+    }
   }
 
   # Managed node group for the Karpenter controller and cluster addons.
   # Karpenter provisions every other node through the NodePools below.
   eks_managed_node_groups = {
     control = {
-      min_size     = 2
-      max_size     = 2
-      desired_size = 2
+      min_size     = 1
+      max_size     = 1
+      desired_size = 1
 
       instance_types = ["m5.large"]
       iam_role_additional_policies = {
@@ -159,6 +169,10 @@ module "karpenter" {
 
   create_pod_identity_association = true
 
+  # The generated controller policy exceeds the 6,144-char managed policy quota with this
+  # cluster name; inline role policies have a larger quota.
+  enable_inline_policy = true
+
   node_iam_role_name = format("%s-node", local.name)
 
   node_iam_role_additional_policies = {
@@ -179,6 +193,7 @@ resource "helm_release" "karpenter" {
 
   values = concat([
     <<-EOT
+    replicas: 1
     settings:
       clusterName: ${module.eks.cluster_name}
       clusterEndpoint: ${module.eks.cluster_endpoint}

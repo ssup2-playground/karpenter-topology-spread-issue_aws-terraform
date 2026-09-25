@@ -1,0 +1,12 @@
+# Karpenter v1.14.1 (without fix) - 4 replicas targeting the 2az NodePool
+# Result: 2 Running (one per reachable zone) / 2 Pending
+
+NAME                       READY   STATUS    RESTARTS   AGE    IP            NODE                          NOMINATED NODE   READINESS GATES
+2az-app-675b9bd9b6-2f7nw   1/1     Running   0          5m4s   10.0.52.229   ip-10-0-49-37.ec2.internal    <none>           <none>
+2az-app-675b9bd9b6-4m95p   1/1     Running   0          5m4s   10.0.79.30    ip-10-0-77-167.ec2.internal   <none>           <none>
+2az-app-675b9bd9b6-bph54   0/1     Pending   0          5m4s   <none>        <none>                        <none>           <none>
+2az-app-675b9bd9b6-sskmx   0/1     Pending   0          5m4s   <none>        <none>                        <none>           <none>
+
+NAME        TYPE         CAPACITY    ZONE         NODE                          READY   AGE    IMAGEID                 ID                                      NODEPOOL   NODECLASS   DRIFTED
+2az-77qgp   c6g.xlarge   on-demand   us-east-1b   ip-10-0-77-167.ec2.internal   True    5m4s   ami-015408e6ba98db2d9   aws:///us-east-1b/i-0b9b83ea10c5ed704   2az        default     
+2az-ccbfq   c6g.xlarge   on-demand   us-east-1a   ip-10-0-49-37.ec2.internal    True    5m4s   ami-015408e6ba98db2d9   aws:///us-east-1a/i-08f65c83761bfee5d   2az        default     

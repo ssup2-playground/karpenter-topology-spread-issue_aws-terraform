@@ -1,0 +1,5 @@
+# FailedScheduling events for the pending pods
+
+5m8s        Warning   FailedScheduling   pod/2az-app-675b9bd9b6-bph54   Failed to schedule pod, incompatible requirements, key pool, pool In [2az] not in pool In [3az]; all available instance types exceed limits for nodepool (NodePool=2az)
+4m36s       Warning   FailedScheduling   pod/2az-app-675b9bd9b6-sskmx   Failed to schedule pod, incompatible requirements, key pool, pool In [2az] not in pool In [3az]; unsatisfiable topology constraint for topology spread, key=topology.kubernetes.io/zone (counts = us-east-1a: 1, us-east-1b: 1, us-east-1c: 0, podDomains = topology.kubernetes.io/zone Exists, nodeDomains = topology.kubernetes.io/zone In [us-east-1a us-east-1b]
+6s          Warning   FailedScheduling   pod/2az-app-675b9bd9b6-bph54   Failed to schedule pod, incompatible requirements, key pool, pool In [2az] not in pool In [3az]; unsatisfiable topology constraint for topology spread, key=topology.kubernetes.io/zone (counts = us-east-1a: 1, us-east-1b: 1, us-east-1c: 0, podDomains = topology.kubernetes.io/zone Exists, nodeDomains = topology.kubernetes.io/zone In [us-east-1a us-east-1b]

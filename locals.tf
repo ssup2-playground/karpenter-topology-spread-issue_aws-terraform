@@ -12,6 +12,6 @@ locals {
   # Set to override the Karpenter controller image. Leave empty to use the official image
   # (without the fix, "before" test). Set to the image built from kubernetes-sigs/karpenter#3181
   # for the "after" test.
-  # karpenter_image = "ghcr.io/ssup2/karpenter:pr3181"
+  # karpenter_image = "ghcr.io/ssup2-playground/karpenter:pr3181"
   karpenter_image = ""
 }

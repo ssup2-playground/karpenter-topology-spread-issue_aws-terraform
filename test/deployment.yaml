@@ -28,7 +28,9 @@ spec:
       - name: app
         image: public.ecr.aws/docker/library/busybox:stable
         command: ["sleep", "infinity"]
+        # Large enough that one node fits exactly one pod, so kube-scheduler cannot pack the
+        # remaining replicas onto an existing node and mask Karpenter's provisioning failure.
         resources:
           requests:
-            cpu: 100m
-            memory: 128Mi
+            cpu: 3
+            memory: 1Gi
