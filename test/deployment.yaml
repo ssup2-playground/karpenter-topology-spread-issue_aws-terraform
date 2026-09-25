@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 2az-app
+  namespace: default
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: 2az-app
+  template:
+    metadata:
+      labels:
+        app: 2az-app
+    spec:
+      nodeSelector:
+        pool: 2az
+      topologySpreadConstraints:
+      - topologyKey: topology.kubernetes.io/zone
+        maxSkew: 1
+        whenUnsatisfiable: DoNotSchedule
+        nodeTaintsPolicy: Honor
+        nodeAffinityPolicy: Honor
+        labelSelector:
+          matchLabels:
+            app: 2az-app
+      containers:
+      - name: app
+        image: public.ecr.aws/docker/library/busybox:stable
+        command: ["sleep", "infinity"]
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
