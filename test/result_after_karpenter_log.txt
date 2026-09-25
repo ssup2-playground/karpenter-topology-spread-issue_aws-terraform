@@ -5,4 +5,7 @@
 {"level":"INFO","time":"2026-09-25T14:44:16.084Z","logger":"controller","message":"created nodeclaim","commit":"bf36e36-dirty","controller":"provisioner","namespace":"","name":"","reconcileID":"437b5103-d4e1-4828-9c7e-6c3d28d564d0","NodePool":{"name":"2az"},"NodeClaim":{"name":"2az-24zm6"},"requests":{"cpu":"6150m","memory":"2Gi","pods":"5"},"instance-types":"c1.xlarge, c4.2xlarge, c4.4xlarge, c4.8xlarge, c5.12xlarge and 595 other(s)"}
 {"level":"INFO","time":"2026-09-25T14:44:25.941Z","logger":"controller","message":"created nodeclaim","commit":"bf36e36-dirty","controller":"provisioner","namespace":"","name":"","reconcileID":"8b56c985-8d61-4378-a7b6-bd4b980070e4","NodePool":{"name":"2az"},"NodeClaim":{"name":"2az-qhwcd"},"requests":{"cpu":"3150m","memory":"1Gi","pods":"4"},"instance-types":"c1.xlarge, c3.2xlarge, c3.4xlarge, c3.8xlarge, c3.xlarge and 595 other(s)"}
 
-# 'could not schedule pod' errors with the fix image: 1
+# Topology errors with the fix image: 0 (one transient non-topology error was logged
+# during scale-up: "all available instance types exceed limits for nodepool"; the pod
+# scheduled normally seconds later. The same transient message also appears without the
+# fix; the issue signature "unsatisfiable topology constraint" no longer occurs.)
